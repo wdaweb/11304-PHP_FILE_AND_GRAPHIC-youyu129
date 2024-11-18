@@ -88,30 +88,50 @@ function del($table ,$id){
  * @return boolean
  */
 
-function update($table,$array,$id){
+ function update($table,$array,$id){
     $sql="update $table set ";
     $pdo=$pdo=pdo(DBNAME);
     $tmp=[];
-    foreach($array as $key => $value){
-        $tmp[]="`$key`='$value'";
-    }
-    $sql=$sql . join(",",$tmp);
-
-    if(is_array($id)){
-        $tmp=[];
-        foreach($id as $key => $value){
+    if(isset($array['id'])){
+        $id=$array['id'];
+        unset($array['id']);
+        
+        foreach($array as $key => $value){
             $tmp[]="`$key`='$value'";
         }
-        $sql=$sql . " where ".join(" && ",$tmp);
 
-    }else{
-        $sql=$sql . " where `id`='$id'";
+        $sql=$sql . join(",",$tmp) . "where `id`='$id'";
     }
 
     return $pdo->exec($sql);
 
-
 }
+
+
+// function update($table,$array,$id){
+//     $sql="update $table set ";
+//     $pdo=$pdo=pdo(DBNAME);
+//     $tmp=[];
+//     foreach($array as $key => $value){
+//         $tmp[]="`$key`='$value'";
+//     }
+//     $sql=$sql . join(",",$tmp);
+
+//     if(is_array($id)){
+//         $tmp=[];
+//         foreach($id as $key => $value){
+//             $tmp[]="`$key`='$value'";
+//         }
+//         $sql=$sql . " where ".join(" && ",$tmp);
+
+//     }else{
+//         $sql=$sql . " where `id`='$id'";
+//     }
+
+//     return $pdo->exec($sql);
+
+
+// }
 
 /**
  * 新增資料
