@@ -79,8 +79,18 @@ function del($table ,$id){
      return  $pdo->exec($sql);
     
 }
-
-/**
+/*
+* 
+* 
+*/
+function save($table,$array){
+    if(isset($array['id'])){
+        update($table,$array);
+    }else{
+        insert($table,$array);
+    }
+}
+/*
  * 更新指定條件的資料
  * @param string $table 資料表名稱
  * @param array $array 更新的欄位及內容
