@@ -63,6 +63,7 @@ $items=array_diff($items,array('.','..'));
 foreach($items as $file){
     echo "<div class='item'>";
     echo "<img src='{$dirpath}/{$file}'>";
+    echo "<a href='del_img.php?file={$file}'>刪除</a>";
     echo "</div>";
 }
 
