@@ -8,9 +8,8 @@
     text-decoration: none;
 }
 
-
-
 .types {
+    display: block;
     width: 400px;
     margin: 20px auto;
     padding: 10px;
@@ -18,6 +17,7 @@
     border: 1px solid #999;
     border-radius: 50px;
     box-shadow: 2px 2px 5px #ccc;
+    text-align: center;
 
 }
 
