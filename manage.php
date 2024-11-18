@@ -17,13 +17,27 @@
     <title>檔案管理功能</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .item {
-            width: 300px;
+        table {
+            width: 500px;
+            margin: 20px auto;
         }
 
-        .item img {
-            width: 100%;
+        td {
+            padding: 5px 10px;
         }
+
+        td img {
+            width: 120px;
+        }
+
+        .continue {
+            width: 100px;
+            height: 22px;
+            margin:auto;
+            text-align: center;
+            background-color: lightblue;
+        }
+
     </style>
 </head>
 <body>
@@ -39,11 +53,16 @@ include_once "function.php";
 // echo "<br>";
 // dd($_FILES);
 
-if(isset($_FILES['img'])){
-    if($_FILES['img']['error']==0){
-        move_uploaded_file($_FILES['img']['tmp_name'],"./files/".$_FILES['img']['name']);
+if(isset($_FILES['filename'])){
+    if($_FILES['filename']['error']==0){
+        $filename=time() . $_FILES['filename']['name'];
+        move_uploaded_file($_FILES['filename']['tmp_name'],"./files/".$filename);
+        $desc=$_POST['desc'];
+
+        insert("imgs",['filename'=>$filename,'desc'=>$desc]);
+
     }else{
-        echo "上傳失敗，請檢察檔案格式或大小是否符合規定";
+        echo "上傳失敗，請檢查檔案格式或大小是否符合規定";
     }
 }
 
@@ -54,22 +73,27 @@ if(isset($_FILES['img'])){
 
 <?php
 
-$dirpath="./files";
+$rows=all('imgs');
+
+// $dirpath="./files";
 
 // $dir=opendir($dirpath);
-$items=scandir($dirpath);
-$items=array_diff($items,array('.','..'));
-
-foreach($items as $file){
-    echo "<div class='item'>";
-    echo "<img src='{$dirpath}/{$file}'>";
-    echo "<a href='del_img.php?file={$file}'>刪除</a>";
-    echo "<a href='re_upload.php?file={$file}'>重新上傳</a>";
-    echo "</div>";
+// $items=scandir($dirpath);
+// $items=array_diff($items,array('.','..'));
+echo "<table>";
+foreach($rows as $file){
+    echo "<tr>";
+    echo "<td><img src='files/{$file['filename']}'></td>";
+    echo "<td>{$file['desc']}<td>";
+    echo "<td><a href='del_img.php?id={$file['id']}'>刪除</a></td>";
+    echo "<td><a href='re_upload.php?id={$file['id']}'>重新上傳</a></td>";
+    echo "</tr>";
 }
+echo "</table>";
 
 ?>
 
+<div class="continue"><a href="upload.php">繼續新增</a></div>
 
 
 

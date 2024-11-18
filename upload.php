@@ -30,8 +30,8 @@
  <!----建立你的表單及設定編碼----->
 <form action="manage.php" method="post" enctype="multipart/form-data">
 
-<input type="file" name="img" id="file">
-<input type="text" name="name" id="name">
+<input type="file" name="filename" id="file">
+<input type="text" name="desc" id="name">
 <input type="submit" name="" id="上傳">
 </form>
 
