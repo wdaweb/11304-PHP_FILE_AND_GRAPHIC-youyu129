@@ -14,7 +14,7 @@ if(isset($_FILES['filename'])){
         unlink("./files/".$row['filename']);
         $row['filename']=time() . $_FILES['filename']['name'];
         move_uploaded_file($_FILES['filename']['tmp_name'],"./files/".$row['filename']);
-        update('imgs',$row,$id);
+        update('imgs',$row);
 
     }else{
         echo "上傳失敗，請檢察檔案格式或大小是否符合規定";
