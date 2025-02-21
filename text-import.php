@@ -11,11 +11,14 @@ table {
 th,
 td {
     border: 1px solid #ccc;
+    padding: 5px;
+
 }
 
 tr,
 td {
     border: 1px solid #ccc;
+    padding: 5px;
 }
 </style>
 <?php
