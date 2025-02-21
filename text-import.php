@@ -1,3 +1,23 @@
+<style>
+* {
+    box-sizing: border-box;
+}
+
+table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #ccc;
+}
+
+tr,
+td {
+    border: 1px solid #ccc;
+}
+</style>
 <?php
     /****
  * 1.建立資料庫及資料表
@@ -10,7 +30,33 @@
  */
     if (! empty($_FILES['file'])) {
         move_uploaded_file($_FILES['file']['tmp_name'], "./files/{$_FILES['file']['name']}");
-        echo $_FILES['file']['name'] . "上傳成功";
+        echo $_FILES['file']['name'] . "上傳成功<br>";
+        getFile("./files/{$_FILES['file']['name']}");
+    }
+
+    function getFile($path)
+    {
+        // r read
+        $file = fopen($path, 'r');
+        $line = fgets($file);
+        $cols = explode(",", trim($line));
+        echo "<table>";
+        echo "<tr>";
+        foreach ($cols as $col) {
+            echo "<th>{$col}</th>";
+        }
+        echo "</tr>";
+        while ($line = fgets($file)) {
+            $cols = explode(",", trim($line));
+            echo "<tr>";
+            foreach ($cols as $col) {
+                echo "<th>" . trim($col, '"') . "</th>";
+            }
+            echo "</tr>";
+
+        }
+        echo "</table>";
+
     }
 ?>
 <!DOCTYPE html>
@@ -35,7 +81,6 @@
     </form>
 
     <!----讀出匯入完成的資料----->
-
 
 
 </body>
