@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR系統-登入</title>
+    <style>
+        span {
+            display: inline-block;
+            width: 10%;
+            text-align: center;
+
+        }
+
+        input[type="text"] {
+            width: 80%;
+        }
+
+        input[type="password"] {
+            width: 80%;
+        }
+
+        input[type="date"] {
+            width: 70%;
+        }
+
+        input[type="submit"] {
+            display: block;
+            margin: 0 auto;
+        }
+
+        body {
+            background-color: #f2f2f2;
+            margin: 0;
+            height: 100vh;
+        }
+
+        fieldset {
+            margin: auto;
+            width: 80%;
+            background-color: #deedf8;
+            border: 2px solid #1c6799;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 10 0 5px #01101b;
+        }
+
+        legend {
+            font-weight: bold;
+            font-size: 30px;
+            color: #074e7d;
+
+        }
+    </style>
+</head>
+
+<body>
+    <fieldset>
+        <legend>HR 系統</legend>
+
+        <form action="./s20241021_05_hrform2.html" method="GET">
+
+            <p>
+                <span>
+                    <label for="">帳號：</label>
+                </span>
+                <input type="text" name="myNumber" id="" placeholder="帳號">
+            </p>
+
+            <p>
+                <span>
+                    <label for="">密碼：</label>
+                </span>
+                <input type="password" name="myPassword" id="" placeholder="password">
+            </p>
+            <p>
+                <input type="submit" value="登入">
+            </p>
+        </form>
+    </fieldset>
+</body>
+
+</html>

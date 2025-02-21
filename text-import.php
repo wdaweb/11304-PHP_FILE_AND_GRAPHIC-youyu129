@@ -1,5 +1,5 @@
 <?php
-/****
+    /****
  * 1.建立資料庫及資料表
  * 2.建立上傳檔案機制
  * 3.取得檔案資源
@@ -8,10 +8,14 @@
  * 6.寫入資料庫
  * 7.結束檔案
  */
-
+    if (! empty($_FILES['file'])) {
+        move_uploaded_file($_FILES['file']['tmp_name'], "./files/{$_FILES['file']['name']}");
+        echo $_FILES['file']['name'] . "上傳成功";
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,15 +23,21 @@
     <title>文字檔案匯入</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<h1 class="header">文字檔案匯入練習</h1>
-<!---建立檔案上傳機制--->
+    <h1 class="header">文字檔案匯入練習</h1>
+    <!---建立檔案上傳機制--->
 
+    <form action="" method="post" enctype="multipart/form-data">
+        <label for="">文字檔案</label>
+        <input type="file" name="file" id="file">
+        <input type="submit" value="上傳">
+    </form>
 
-
-<!----讀出匯入完成的資料----->
+    <!----讀出匯入完成的資料----->
 
 
 
 </body>
+
 </html>
