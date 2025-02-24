@@ -92,7 +92,32 @@
     </div>
 
     <!----圖形加邊框----->
+    <h2 class="text-center">圖形加邊框</h2>
+    <?php
+        // 目標圖片的尺寸要加上邊框的寬度(寬:左右兩邊、高:上下兩邊)
+        $border  = 10;
+        $bwidth  = $src_info[0] + $border * 2;
+        $bheight = $src_info[1] + $border * 2;
 
+        // 設定顏色
+        $border_dst         = imagecreatetruecolor($bwidth, $bheight);
+        $border_color_red   = imagecolorallocate($border_dst, 255, 0, 0);
+        $border_color_green = imagecolorallocate($border_dst, 0, 255, 0);
+        $border_color_blue  = imagecolorallocate($border_dst, 0, 0, 255);
+
+        // 邊框顏色定位 用矩形的方式填顏色
+        imagefilledrectangle($border_dst, 0, 0, round(($bwidth / 2)), round(($bheight / 2)), $border_color_red);
+        imagefilledrectangle($border_dst, 0, round(($bheight / 2)), round((($bwidth / 2))), round(($bheight / 2)), $border_color_blue);
+        imagefilledrectangle($border_dst, round(($bwidth / 2)), 0, round(($bwidth / 2)), $bheight, $border_color_green);
+
+        // 產生全彩圖片
+        imagecopyresampled($border_dst, $src, $border, $border, 0, 0, $src_info[0], $src_info[1], $src_info[0], $src_info[1]);
+
+        // 將產生的圖檔存到路徑中
+        imagejpeg($border_dst, "./images/border_{$_FILES['file']['name']}");
+    ?>
+
+    <img src="<?php echo "./images/border_{$_FILES['file']['name']}"; ?>" alt="">
 
     <!----產生圖形驗證碼----->
 
