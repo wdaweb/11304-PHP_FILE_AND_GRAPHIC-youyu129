@@ -16,13 +16,13 @@
          * 回傳值 :string
          */
 
-        function code(...$length)
+        function code($length)
         {
             // 定義一個包含所有可能字元的字元池
             $charPool = array_merge(range(0, 9), range('A', 'Z'), range('a', 'z'));
 
             // 如果參數有指定長度，使用指定的長度，否則產生4到8之間的隨機長度
-            $length = $length[0] ?? rand(4, 8);
+            $length = $length ?? rand(4, 8);
 
             // 如果長度超過字元池長度，則報錯或調整為字元池的最大長度
             if ($length > count($charPool)) {
@@ -38,6 +38,9 @@
             return $gstr;
         }
 
+        // 看產出的亂碼
+        // echo code(5);
+
         function captcha($str)
         {
             $gstr = $str;
@@ -48,7 +51,7 @@
             //建立一個陣列用來儲存每一個字元的圖形資訊
             $text_info = [];
 
-            //建立兩個變數用來計算所有字元的總寬度及最大高度
+            //建立兩個變數用來計算所有字元的總寬度及最大高度(整張驗證碼圖片的大小)
             $dst_w = 0;
             $dst_h = 0;
 
@@ -62,9 +65,10 @@
                 $text_info[$char]['angle'] = rand(-35, 35);
 
                 //使用imagettfbbox()來取得單一字元在大小,角度和字型的影響下，字元圖形的四個角的坐標資訊陣列
+                //計算最終的外框是多少
                 $tmp = imagettfbbox($fontsize, $text_info[$char]['angle'], realpath('./fonts/arial.ttf'), $char);
 
-                //利用字元的資訊，使用x坐標的最大值減最小值來計算出字元寬度，使用y坐標的最大值-最小值來計出字元高度
+                //利用字元的資訊，找出全部的x，使用x坐標的最大值減最小值來計算出字元寬度，使用y坐標的最大值-最小值來計出字元高度
                 //因坐標特性，需要加上1才能得到正確的寬度及高度
                 $text_info[$char]['width']  = max($tmp[0], $tmp[2], $tmp[4], $tmp[6]) - min($tmp[0], $tmp[2], $tmp[4], $tmp[6]) + 1;
                 $text_info[$char]['height'] = max($tmp[1], $tmp[3], $tmp[5], $tmp[7]) - min($tmp[1], $tmp[3], $tmp[5], $tmp[7]) + 1;
@@ -100,6 +104,8 @@
             $green = imagecolorallocate($dst_img, 0, 255, 0);
 
             //顏色陣列
+            //不要有相同的顏色
+            //可以用不同亮度來區隔文字/背景/線條
             $colors = [
                 imagecolorallocate($dst_img, 255, 127, 80),
                 imagecolorallocate($dst_img, 204, 85, 0),
@@ -179,7 +185,7 @@
         }
     ?>
 
-    <img src="<?php echo captcha(code(5));?>" alt="" style="border:2px solid green">
+    <img src="<?php echo captcha(code(5)); ?>" alt="" style="border:2px solid green">
 
 
 </body>
