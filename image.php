@@ -47,19 +47,29 @@
             $src      = imagecreatefromjpeg($filename);
             $src_info = getimagesize($filename);
             //print_r($src_info);
-            $scale_small      = 0.5;
-            $scale_big        = 1.5;
+            //看需要的長寬資訊在陣列的哪個欄位
+
+            // 設定縮小放大的比例
+            $scale_small = 0.5;
+            $scale_big   = 1.5;
+
+            // 拿到原圖的寬高之後 計算出目標圖片的寬高
             $dst_small_width  = $src_info[0] * $scale_small;
             $dst_small_height = $src_info[1] * $scale_small;
             $dst_big_width    = $src_info[0] * $scale_big;
             $dst_big_height   = $src_info[1] * $scale_big;
 
+            // 縮小
+            // 產生全彩圖片
             $dst_small = imagecreatetruecolor($dst_small_width, $dst_small_height);
             imagecopyresampled($dst_small, $src, 0, 0, 0, 0, $dst_small_width, $dst_small_height, $src_info[0], $src_info[1]);
 
+            // 放大
+            // 產生全彩圖片
             $dst_big = imagecreatetruecolor($dst_big_width, $dst_big_height);
             imagecopyresampled($dst_big, $src, 0, 0, 0, 0, $dst_big_width, $dst_big_height, $src_info[0], $src_info[1]);
 
+            // 將產生的圖檔存到路徑中
             imagejpeg($dst_small, "./images/small_{$_FILES['file']['name']}");
             imagejpeg($dst_big, "./images/big_{$_FILES['file']['name']}");
         }
